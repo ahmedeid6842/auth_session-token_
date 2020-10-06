@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form method="POST" action=<% `/${path}/signup` %>>
+        <% if(validation){ 
+            validation.forEach(objError => {%>
+                <h3><%=objError.param%></h3>
+                <h5><%=objError.msg%></h5>
+            <% });%>
+        <%}%>
+        <h2>Sign up</h2>
+        <label for="email">Email</label>
+        <input type="text" name="email" required />
+        <label for="password">Password</label>
+        <input type="password" name="password" required />
+        <button type="submit">Sign up</button>
+    </form>
+</body>
+
+</html>

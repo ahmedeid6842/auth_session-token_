@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form method="POST" action=<% `/${path}/login` %>>
+        <% if(validation){ 
+            validation.forEach(objError => {%>
+                <h3><%=objError.param%></h3>
+                <h5><%=objError.msg%></h5>
+            <% });%>
+        <%}%>
+        <h2>Log In</h2>
+        <label for="email">Email</label>
+        <input type="text" name="email" required />
+        <label for="password">Password</label>
+        <input type="password" name="password" required />
+        <button type="submit">Log in</button>
+    </form>
+
+    <!-- <form action="https://new-user-stories.herokuapp.com/stories/5f7a02691579630017483a3a?_method=DELETE" method="post"
+        id="delete-form">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit"> Delete</button>
+    </form> -->
+</body>
+
+</html>
