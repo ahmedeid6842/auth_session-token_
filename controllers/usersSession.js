@@ -37,11 +37,13 @@ module.exports.registerController = async (req, res) => {
     if (error) return res.status(400).send(error.message);
 
     let { email, password } = req.body;
+    let user = await User.findOne({ email });
+    if (user) return res.status(400).send(`${email} already assigned to user`);
 
     let salt = await bcrypt.genSalt(10);
     password = await bcrypt.hash(password, salt);
 
-    let user = await User.create({ email, password });
+    user = await User.create({ email, password });
 
     req.session.user = user;
     req.session.isLoggedIn = true

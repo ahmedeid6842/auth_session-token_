@@ -1,0 +1,1078 @@
+{
+	"info": {
+		"_postman_id": "91d85477-8ddd-4b35-82d2-28e16213efab",
+		"name": "Auth_session_token",
+		"description": "![Logo](https://user-images.githubusercontent.com/57197702/218442989-cf6e2ba1-afde-4a15-a52e-da22d76021f3.JPG)\n\n# Lock\n\nLock uses REST APIs to protect endpoints by using token and session techniques.\n\nThe session branch is connected to the Redis and Mongo databases.\n\nThe Token branch is linked to MongoDB.\n\n## Requirements\n<p>\n <a href=\"https://skillicons.dev\">\n        <img src=\"https://skillicons.dev/icons?i=nodejs,mongodb,redis,postman&theme=light\"/>\n    </a>\n    <a href=\"https://www.npmjs.com/\"><img src=\"https://authy.com/wp-content/uploads/npm-logo.png\" width=\"50px\" height=\"50\"/></a>\n </p>\n\n## API Reference\n\n### Session Based\n\n####  Register\n```http\n  POST /session/register\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Login\n```http\n  Post /session/login\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Home\n```http\n  get /session/home\n```\n| Constraints       | Type        | Description                   |\n| :--------         | :-------    | :-------------------------    |\n| `isAuthenticated` | `middleware`| **Required** you must be logged in to create a post |\n\n#### Logout\n```http\n  get /session/logout\n```\n\n### Token Based\n\n####  Register\n```http\n  POST /token/register\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Login\n```http\n  Post /token/login\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Home\n```http\n  get /token/home\n```\n| Constraints       | Type        | Description                   |\n| :--------         | :-------    | :-------------------------    |\n| `isAuthenticated` | `middleware`| **Required** you must be logged in to create a post |\n\n#### Logout\n```http\n  get /token/logout\n```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "session/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa12345@\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/session/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"session",
+						"register"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "regsitered",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa12345@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/session/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"session",
+								"register"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "44"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2c-qOkmJEXmcLo5BJWZHVy2YO2Vwys\""
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "sessionID=s%3AD3JjuECuhyxNcO7KMx3wAPWXk4B-uegN.r%2BIlPmWmrUDuUmEHVJkwWmst9yJyayQKRfrPG2noSLI; Path=/; Expires=Thu, 16 Feb 2023 12:12:25 GMT; HttpOnly; SameSite=Strict"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 12:12:26 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "register successfully ahmedeid6842@gmail.com"
+				},
+				{
+					"name": "error : validation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa1234@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/session/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"session",
+								"register"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "54"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"36-NAA4JD5SX92AWvpgspFOHas9dHU\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 12:17:25 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "\"password\" should contain at least 5 numeric character"
+				},
+				{
+					"name": "error : email already exist",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa12345@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/session/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"session",
+								"register"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "47"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2f-1/Dk2xcTaQ68TWBD9zj8cfVIHqE\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 12:21:52 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "ahmedeid6842@gmail.com already assigned to user"
+				}
+			]
+		},
+		{
+			"name": "session/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa12345@\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/session/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"session",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "loged in",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa12345@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/session/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"session",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "41"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"29-RV8PJsh6EwAceQNJ4+VSwVDAQZY\""
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "sessionID=s%3AX4e4cG0rMIPGJDyVKFdlp_q-pVya2BFZ.K%2BsKBKF8Duwvnot378ZB4BfQsynJnqK81Da5f%2Frafxc; Path=/; Expires=Thu, 16 Feb 2023 12:14:31 GMT; HttpOnly; SameSite=Strict"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 12:14:31 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "login successfully ahmedeid6842@gmail.com"
+				},
+				{
+					"name": "error : validation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.\",\r\n    \"password\":\"Aa12345@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/session/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"session",
+								"login"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "29"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1d-ZOJYFF0pOjYdp+/iW6htnMidU3o\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 12:25:22 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "\"email\" must be a valid email"
+				},
+				{
+					"name": "error : invalid email or password",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa123459@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/session/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"session",
+								"login"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "25"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"19-PFLzMG5hhZl9EfNligIGlsnN5lg\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 12:26:10 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "invalid email or password"
+				}
+			]
+		},
+		{
+			"name": "session/home",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/session/home",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"session",
+						"home"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get Home",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/session/home",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"session",
+								"home"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "20"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"14-KcvUE314jBFiBsFSodOacv+aTcs\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 12:29:04 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "welcome ahmedeid6842"
+				}
+			]
+		},
+		{
+			"name": "token/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa12345@\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/session/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"session",
+						"register"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "regsitered",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa12345@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/session/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"session",
+								"register"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "44"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2c-qOkmJEXmcLo5BJWZHVy2YO2Vwys\""
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "sessionID=s%3AD3JjuECuhyxNcO7KMx3wAPWXk4B-uegN.r%2BIlPmWmrUDuUmEHVJkwWmst9yJyayQKRfrPG2noSLI; Path=/; Expires=Thu, 16 Feb 2023 12:12:25 GMT; HttpOnly; SameSite=Strict"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 12:12:26 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "register successfully ahmedeid6842@gmail.com"
+				},
+				{
+					"name": "error : validation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa1234@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/session/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"session",
+								"register"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "54"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"36-NAA4JD5SX92AWvpgspFOHas9dHU\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 12:17:25 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "\"password\" should contain at least 5 numeric character"
+				},
+				{
+					"name": "error : email already exist",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa12345@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/session/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"session",
+								"register"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "47"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2f-1/Dk2xcTaQ68TWBD9zj8cfVIHqE\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 12:21:52 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "ahmedeid6842@gmail.com already assigned to user"
+				}
+			]
+		},
+		{
+			"name": "token/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa12345@\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/session/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"session",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "loged in",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa12345@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/token/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"token",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "refreshjwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2VhMmJkZjg4ZmQxYjFkMzQwOTUxMTkiLCJpYXQiOjE2NzYyOTE3NjAsImV4cCI6MTY3NjU1MDk2MH0.B7GnDpoVO9wLUoKSXmdY-Jvm1jIfJlGtmQ1mpwoECEU; Path=/token/refresh; HttpOnly; SameSite=Strict"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "accessjwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2VhMmJkZjg4ZmQxYjFkMzQwOTUxMTkiLCJpYXQiOjE2NzYyOTE3NjAsImV4cCI6MTY3NjI5MjY2MH0.-chIMNB9qIhWAwQh6gP1oe_tJe-N2QYCb6NLUBIGyXQ; Path=/; HttpOnly; SameSite=Strict"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "41"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"29-RV8PJsh6EwAceQNJ4+VSwVDAQZY\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 12:36:00 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "login successfully ahmedeid6842@gmail.com"
+				},
+				{
+					"name": "error : validation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.\",\r\n    \"password\":\"Aa12345@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/session/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"session",
+								"login"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "29"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1d-ZOJYFF0pOjYdp+/iW6htnMidU3o\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 12:25:22 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "\"email\" must be a valid email"
+				},
+				{
+					"name": "error : invalid email or password",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa123459@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/session/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"session",
+								"login"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "25"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"19-PFLzMG5hhZl9EfNligIGlsnN5lg\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 12:26:10 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "invalid email or password"
+				}
+			]
+		},
+		{
+			"name": "token/home",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/session/home",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"session",
+						"home"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get Home",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/session/home",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"session",
+								"home"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "20"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"14-KcvUE314jBFiBsFSodOacv+aTcs\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 12:29:04 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "welcome ahmedeid6842"
+				}
+			]
+		}
+	]
+}
