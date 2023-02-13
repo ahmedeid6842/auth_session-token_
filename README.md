@@ -8,6 +8,8 @@ The session branch is connected to the Redis and Mongo databases.
 
 The Token branch is linked to MongoDB.
 
+**Feature** Although users have an address book
+
 
 
 ## Requirements
@@ -76,7 +78,7 @@ If you don't know how to do it, watch this [video](https://www.youtube.com/watch
 ```
 | Constraints       | Type        | Description                   |
 | :--------         | :-------    | :-------------------------    |
-| `isAuthenticated` | `middleware`| **Required** you must be logged in to create a post |
+| `isAuthenticated` | `middleware`| **Required** you must be logged in to get to home endpoint |
 
 #### Logout
 ```http
@@ -109,13 +111,56 @@ If you don't know how to do it, watch this [video](https://www.youtube.com/watch
 ```
 | Constraints       | Type        | Description                   |
 | :--------         | :-------    | :-------------------------    |
-| `isAuthenticated` | `middleware`| **Required** you must be logged in to create a post |
+| `isAuthenticated` | `middleware`| **Required** you must be logged in to get to home endpoint |
 
 #### Logout
 ```http
   get /token/logout
 ```
 
+### Address Book
+
+| Constraints       | Type        | Description                   |
+| :--------         | :-------    | :-------------------------    |
+| `isAuthenticated` | `middleware`| **Required** you must be logged in to access Address Book endpoint|
+
+####  Get Your Address
+```http
+  GET /addressBook/
+```
+
+#### Add Your Address
+```http
+  POST /addressBook/
+```
+| Request Body | Type     | Description                   |
+| :--------    | :------- | :-------------------------    |
+| `name.firstName` | `string` | **Required** .user's first Name    |
+| `name.lastName`   | `string` | **Required** .user's last Name |
+| `contactNumber`   | `string` | **Required** .user's phone number |
+| `address.country`   | `string` | **Required** .user's country |
+| `address.city`   | `string` | **Required** .user's city |
+| `address.street`   | `string` | **Required** .user's street |
+| `address.postalCode`   | `number` | **Required** .user's address postal code |
+
+#### Update your Address
+```http
+  PUT /addressBook/
+```
+| Request Body | Type     | Description                   |
+| :--------    | :------- | :-------------------------    |
+| `name.firstName` | `string` | user's first Name    |
+| `name.lastName`   | `string` | user's last Name |
+| `contactNumber`   | `string` | user's phone number |
+| `address.country`   | `string` | user's country |
+| `address.city`   | `string` | user's city |
+| `address.street`   | `string` | user's street |
+| `address.postalCode`   | `number` | user's address postal code |
+
+#### Delete Your Address
+```http
+  DELETE /addressBook
+```
 
 ## Contributing
 
