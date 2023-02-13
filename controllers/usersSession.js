@@ -1,12 +1,7 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const User = require("../models/users");
+const { cookie, validationResult } = require("express-validator/check");
 
-module.exports.getLogin = (req, res) => {
-    res.render("login", {
-        path: "session",
-        validation: ""
-    });
-}
 
 module.exports.postLogin = async (req, res) => {
     const errors = validationResult(req);
@@ -34,12 +29,6 @@ module.exports.postLogin = async (req, res) => {
     res.redirect("/session/home")
 }
 
-module.exports.getSignup = (req, res) => {
-    res.render("signup", {
-        path: "session",
-        validation: ""
-    });
-}
 
 module.exports.postSignup = async (req, res) => {
     const errors = validationResult(req);

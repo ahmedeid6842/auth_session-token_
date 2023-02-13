@@ -13,7 +13,7 @@ const store = new MongoDBStore({
 module.exports = function (app) {
     app.use(session({
         name: "sessionID",
-        secret: process.env.SessionSecret,
+        secret: "secret",
         resave: false,
         saveUninitialized: false,
         store: store,

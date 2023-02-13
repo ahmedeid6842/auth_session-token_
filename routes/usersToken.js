@@ -1,25 +1,21 @@
 const express = require('express');
-// const { body, validationResult } = require('express-validator');
 
-const userController = require("../controllers/userToken");
+const { getHomeController, loginController, logoutController, registerController, getRefreshTokenController } = require("../controllers/userToken");
 const { isAuth, isLoggedIn } = require('../middleware/isAuth');
-const { validateLogin, validateSignUp } = require("../middleware/validation")
 
 const router = express.Router();
 
-router.get('/', isAuth, userController.getHome)
+router.get('/', isAuth, getHomeController)
 
-router.get("/login", isLoggedIn, userController.getLogin)
 
-router.post("/login", validateLogin, userController.postLogin)
+router.post("/login", isLoggedIn, loginController)
 
-router.get("/signup", userController.getSignup)
+router.post("/register", isLoggedIn, registerController)
 
-router.post("/signup", validateSignUp, userController.postSignup)
+router.get("/home", isAuth, getHomeController)
 
-router.get("/home", isAuth, userController.getHome)
+router.get("/refresh", getRefreshTokenController)
 
-router.get("/refresh", userController.getRefresh)
+router.get('/logout', logoutController);
 
-router.get('/logout', userController.getLogout);
 module.exports = router;
