@@ -5,6 +5,8 @@ const cookieParser = require("cookie-parser");
 
 const tokenAuthRouter = require("./routes/usersToken");
 const sessionAuthRouter = require("./routes/usersSession");
+const addressBookRouter = require("./routes/addressBook");
+const { isAuth } = require("./middleware/isAuthSession")
 
 const app = express();
 
@@ -15,6 +17,7 @@ require("./config/sessionConfig")(app);
 
 app.use("/token", tokenAuthRouter);
 app.use("/session", sessionAuthRouter);
+app.use("/addressBook", isAuth, addressBookRouter);
 
 const port = process.env.PORT || 4000;
 mongoose
