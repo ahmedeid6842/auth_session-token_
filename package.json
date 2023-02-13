@@ -16,7 +16,9 @@
     "joi": "^17.7.1",
     "joi-password": "^4.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.9.1"
+    "mongoose": "^6.9.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.0"
   },
   "scripts": {
     "dev": "nodemon server.js",

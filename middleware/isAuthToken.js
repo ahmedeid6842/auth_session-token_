@@ -43,7 +43,6 @@ module.exports.isLoggedIn = async (req, res, next) => { // this middleware to en
         if (!user) return res.send("invalid token provided");
 
         const accessSecret = process.env.ACCESS_JWT_SECRET + user.password;
-        console.log(accessSecret);
         jwt.verify(accesstJWT, accessSecret);
         return res.status(400).send("already logged in")
     } catch (err) {
