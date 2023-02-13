@@ -6,7 +6,7 @@ const { createNewToken } = require('../utils/getNewToken');
 module.exports.loginController = async (req, res) => {
     /**
      * DONE: check if user already logged in or not
-     * DONE: validate request body to match login schema
+     * DONE: validate request body to match user schema
      * DONE: check if user email already exist or not
      * DONE: compare the passwords and verify them
      * DONE: if everything is ok send in cookie accessToken and refresh Token 

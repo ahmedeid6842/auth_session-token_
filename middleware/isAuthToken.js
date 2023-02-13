@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/users");
-require('dotenv').config()
 
 
 module.exports.isAuth = async (req, res, next) => { // this middleware to ensure that incoming request from authenticated user
@@ -18,7 +17,7 @@ module.exports.isAuth = async (req, res, next) => { // this middleware to ensure
         let user = await User.findById(userId);
         if (!user) return res.send("invalid token provided")
 
-        const accessSecret = process.env.AccessJWTSecret + user.password;
+        const accessSecret = process.env.ACCESS_JWT_SECRET + user.password;
         jwt.verify(accesstJWT, accessSecret);
 
         req.user = user;
@@ -26,6 +25,8 @@ module.exports.isAuth = async (req, res, next) => { // this middleware to ensure
     } catch (err) {
         if (err.message === "jwt expired") {
             return res.redirect(`/token/refresh?path=${req.path}`);
+        } else if (err.message == "invalid signature") {
+            return res.status(400).send(err.message);
         }
         return res.status(500).send("something went wrong")
     }
@@ -41,15 +42,16 @@ module.exports.isLoggedIn = async (req, res, next) => { // this middleware to en
         let user = await User.findById(decoded.userId);
         if (!user) return res.send("invalid token provided");
 
-        const accessSecret = process.env.AccessJWTSecret + user.password;
+        const accessSecret = process.env.ACCESS_JWT_SECRET + user.password;
+        console.log(accessSecret);
         jwt.verify(accesstJWT, accessSecret);
         return res.status(400).send("already logged in")
     } catch (err) {
-        console.log(err);
         if (err.message === "jwt expired") {
             return next();
+        } else if (err.message == "invalid signature") {
+            return res.status(400).send(err.message);
         }
-        return res.status(500).send("something went wrong");
     }
 }
 

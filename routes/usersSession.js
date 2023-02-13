@@ -1,17 +1,13 @@
 const express = require("express");
-
 const router = express.Router();
 
-const userController = require("../controllers/usersSession")
-const { isAuth } = require("../middleware/isAuthSession");
+const { getHomeController, loginController, registerController, logoutController } = require("../controllers/usersSession")
+const { isAuth,isLogged } = require("../middleware/isAuthSession");
 
-
-// router.get("/", isAuth, userController.getHome);
-// router.get("/login", userController.getLogin);
-// router.post("/login", userController.postLogin);
-// router.get("/signup", userController.getSignup);
-// router.post("/signup", userController.postSignup);
-// router.get("/home", isAuth, userController.getHome);
-// router.get("/logout", userController.getLogout);
+router.get("/", isAuth, getHomeController);
+router.post("/register", isLogged, registerController);
+router.post("/login", isLogged, loginController);
+router.get("/home", isAuth, getHomeController);
+router.get("/logout", logoutController);
 
 module.exports = router;

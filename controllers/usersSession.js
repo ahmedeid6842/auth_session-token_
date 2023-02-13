@@ -1,77 +1,70 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/users");
-const { cookie, validationResult } = require("express-validator/check");
+const { userSchemaValidation } = require("../validators/user");
 
-
-module.exports.postLogin = async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.render("signup", {
-            validation: errors.array(),
-            path: "session"
-        });
-    }
+module.exports.loginController = async (req, res) => {
+    /**
+     * DONE: validate request body to match user shcema 
+     * DONE: check if email already exist or not
+     * DONE: compare request body password and user and check if they match 
+     * DONE: if every thing is okay assing logged user to session 
+     */
+    const { error } = userSchemaValidation(req.body);
+    if (error) return res.status(400).send(error.message);
 
     const { email, password } = req.body;
     let user = await User.findOne({ email });
-    if (!user) return res.redirect("/session/login");
-    console.log(user);
-    console.log(email, password);
+    if (!user) return res.status(400).send("invalid email or password");
+
     let verified = await bcrypt.compare(password, user.password);
-
-    if (!verified) {
-        console.log("wrong-password");
-        return res.redirect("/session/login");
-    }
+    if (!verified) return res.status(400).send("invalid email or password");
 
     req.session.user = user;
-    req.session.isLoggenIn = true;
-    res.redirect("/session/home")
+    req.session.isLoggedIn = true;
+
+    return res.send(`login successfully ${user.email}`)
 }
 
 
-module.exports.postSignup = async (req, res) => {
-    const errors = validationResult(req);
+module.exports.registerController = async (req, res) => {
+    /**
+     * DONE: validate request body to match user schema 
+     * DONE: check if email unique or not
+     * DONE: hash request body password 
+     * DONE: save user password
+     */
+    const { error } = userSchemaValidation(req.body);
+    if (error) return res.status(400).send(error.message);
 
-    if (!errors.isEmpty()) {
-        return res.render("signup", {
-            validation: errors.array(),
-            path: "session"
-        });
-    }
+    let { email, password } = req.body;
 
-    const { email, password } = req.body;
-    const user = new User({
-        email,
-        password
-    })
-    console.log(password);
     let salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
+    password = await bcrypt.hash(password, salt);
 
-    await user.save();
+    let user = await User.create({ email, password });
+
     req.session.user = user;
-    req.session.isLoggenIn = true
-    res.redirect("/session/home")
+    req.session.isLoggedIn = true
+    return res.send(`register successfully ${user.email}`)
 }
 
 
-module.exports.getHome = (req, res) => {
-    res.render("welcome", {
-        name: req.user.email.split("@")[0],
-        path: "session"
-    })
+module.exports.getHomeController = (req, res) => {
+    /**
+     * DONE: must be authenticated to reach your endpoint
+     */
+    return res.send(`welcome ${req.session.user.email.split("@")[0]}`)
 }
 
-module.exports.getLogout = (req, res) => {
-    req.session.destroy((err) => {
-        console.log("here");
+module.exports.logoutController = (req, res) => {
+    /**
+     * DONE: delete session in both redis and cookie
+     */
+    return req.session.destroy((err) => {
         if (err) {
-            console.log(err);
-            return res.redirect("/session/home");
+            return res.status(500).send("an error occur try to logout again");
         }
         res.clearCookie("sessionID");
-        res.redirect('/session/login')
-
+        res.send("logout seccessfully")
     })
 }

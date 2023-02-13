@@ -13,23 +13,21 @@ const app = express();
 
 
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }))
 
 
 app.use(cookieParser());
 
-require("./startup/sessionConfig")(app);
+require("./config/sessionConfig")(app);
 
 app.use("/token", tokenAuthRouter);
-// app.use("/session", sessionAuthRouter);
+app.use("/session", sessionAuthRouter);
 
-const PORT = process.env.PORT || 3000
-
-mongoose.connect(process.env.mongodbURI,
+const port = process.env.PORT || 4000;
+mongoose.connect(process.env.MONGODB_URI,
     {
         useUnifiedTopology: true,
         useNewUrlParser: true
     })
-    .then(() => app.listen(PORT, console.log(`listeing on port ${PORT}`)))
-    .catch(err => console.log(err));
+    .then(() => app.listen(port, console.log(`listeing on port ${port}`)))
+    // .catch(err => console.log(err));
 
