@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "91d85477-8ddd-4b35-82d2-28e16213efab",
+		"_postman_id": "3d3cdddc-decc-4b54-af50-49bf5a1251f2",
 		"name": "Auth_session_token",
 		"description": "![Logo](https://user-images.githubusercontent.com/57197702/218442989-cf6e2ba1-afde-4a15-a52e-da22d76021f3.JPG)\n\n# Lock\n\nLock uses REST APIs to protect endpoints by using token and session techniques.\n\nThe session branch is connected to the Redis and Mongo databases.\n\nThe Token branch is linked to MongoDB.\n\n## Requirements\n<p>\n <a href=\"https://skillicons.dev\">\n        <img src=\"https://skillicons.dev/icons?i=nodejs,mongodb,redis,postman&theme=light\"/>\n    </a>\n    <a href=\"https://www.npmjs.com/\"><img src=\"https://authy.com/wp-content/uploads/npm-logo.png\" width=\"50px\" height=\"50\"/></a>\n </p>\n\n## API Reference\n\n### Session Based\n\n####  Register\n```http\n  POST /session/register\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Login\n```http\n  Post /session/login\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Home\n```http\n  get /session/home\n```\n| Constraints       | Type        | Description                   |\n| :--------         | :-------    | :-------------------------    |\n| `isAuthenticated` | `middleware`| **Required** you must be logged in to create a post |\n\n#### Logout\n```http\n  get /session/logout\n```\n\n### Token Based\n\n####  Register\n```http\n  POST /token/register\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Login\n```http\n  Post /token/login\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Home\n```http\n  get /token/home\n```\n| Constraints       | Type        | Description                   |\n| :--------         | :-------    | :-------------------------    |\n| `isAuthenticated` | `middleware`| **Required** you must be logged in to create a post |\n\n#### Logout\n```http\n  get /token/logout\n```",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -479,15 +479,6 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "localhost:3000/session/home",
 							"host": [
@@ -1015,15 +1006,6 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "localhost:3000/session/home",
 							"host": [
@@ -1071,6 +1053,458 @@
 					],
 					"cookie": [],
 					"body": "welcome ahmedeid6842"
+				}
+			]
+		},
+		{
+			"name": "addressBook/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": {\r\n            \"firstName\": \"Ahmed\",\r\n            \"lastName\": \"Eid\"\r\n        },\r\n    \"contactNumber\": \"010123456789\",\r\n        \"address\": {\r\n            \"country\": \"Egypt\",\r\n            \"city\": \"Ismailia, El-Qantara Sharq\",\r\n            \"street\": \"Bank street\",\r\n            \"postalCode\":41511 \r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/addressBook/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"addressBook",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "add new address",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": {\r\n            \"firstName\": \"Ahmed\",\r\n            \"lastName\": \"Eid\"\r\n        },\r\n    \"contactNumber\": \"010123456789\",\r\n        \"address\": {\r\n            \"country\": \"Egypt\",\r\n            \"city\": \"Ismailia, El-Qantara Sharq\",\r\n            \"street\": \"Bank street\",\r\n            \"postalCode\":41511 \r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/addressBook/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"addressBook",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "311"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"137-3hekwAthjsTR9eeiMLEEzMu6gS8\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 18:24:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"added successfully\",\n    \"newAddress\": {\n        \"userId\": \"63ea2bdf88fd1b1d34095119\",\n        \"name\": {\n            \"firstName\": \"Ahmed\",\n            \"lastName\": \"Eid\"\n        },\n        \"contactNumber\": \"010123456789\",\n        \"address\": {\n            \"country\": \"Egypt\",\n            \"city\": \"Ismailia, El-Qantara Sharq\",\n            \"street\": \"Bank street\",\n            \"postalCode\": \"41511\"\n        },\n        \"_id\": \"63ea806fe480ff270ce47a41\",\n        \"__v\": 0\n    }\n}"
+				},
+				{
+					"name": "error: address already added",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": {\r\n            \"firstName\": \"Ahmed\",\r\n            \"lastName\": \"Eid\"\r\n        },\r\n    \"contactNumber\": \"010123456789\",\r\n        \"address\": {\r\n            \"country\": \"Egypt\",\r\n            \"city\": \"Ismailia, El-Qantara Sharq\",\r\n            \"street\": \"Bank street\",\r\n            \"postalCode\":41511 \r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/addressBook/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"addressBook",
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "35"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"23-HxFt7D/hHkPX/723WNvhtzd3WVo\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 18:28:36 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"contact already exist\"\n}"
+				},
+				{
+					"name": "error : invalid address input",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": {\r\n            \"firstName\": \"Ahmed\"\r\n        },\r\n    \"contactNumber\": \"010123456789\",\r\n        \"address\": {\r\n            \"country\": \"Egypt\",\r\n            \"city\": \"Ismailia, El-Qantara Sharq\",\r\n            \"street\": \"Bank street\",\r\n            \"postalCode\":41511 \r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/addressBook/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"addressBook",
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "27"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1b-sND4WZb9vaQzFwvtTjrkhPjIBko\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 18:29:31 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "\"name.lastName\" is required"
+				}
+			]
+		},
+		{
+			"name": "addressBook/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/addressBook/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"addressBook",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get logged in user address",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/addressBook/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"addressBook",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "336"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"150-/x7zB5hceXWQTXXxil9qbVre6og\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 18:31:53 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"found\",\n    \"address\": {\n        \"name\": {\n            \"firstName\": \"Ahmed\",\n            \"lastName\": \"Eid\"\n        },\n        \"address\": {\n            \"country\": \"Egypt\",\n            \"city\": \"Ismailia, El-Qantara Sharq\",\n            \"street\": \"Bank street\",\n            \"postalCode\": \"41511\"\n        },\n        \"_id\": \"63ea806fe480ff270ce47a41\",\n        \"userId\": {\n            \"_id\": \"63ea2bdf88fd1b1d34095119\",\n            \"email\": \"ahmedeid6842@gmail.com\"\n        },\n        \"contactNumber\": \"010123456789\",\n        \"__v\": 0\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "addressBook/",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":{\r\n        \"lastName\":\"Mahmoud\"\r\n    },\r\n    \"address\":{\r\n        \"country\":\"Egypt\",\r\n        \"city\":\"cairo\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/addressBook/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"addressBook",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "update existing user address",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":{\r\n        \"lastName\":\"Mahmoud\"\r\n    },\r\n    \"address\":{\r\n        \"country\":\"Egypt\",\r\n        \"city\":\"cairo\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/addressBook/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"addressBook",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "301"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"12d-409a3RXCYkhTWMMif6yge/UeGVw\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 18:57:45 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"updated successfully \",\n    \"updatedAddress\": {\n        \"name\": {\n            \"firstName\": \"Ahmed\",\n            \"lastName\": \"Mahmoud\"\n        },\n        \"address\": {\n            \"country\": \"Egypt\",\n            \"city\": \"cairo\",\n            \"street\": \"Bank street\",\n            \"postalCode\": \"41511\"\n        },\n        \"_id\": \"63ea8818353a2a5bd93189f8\",\n        \"userId\": \"63ea2bdf88fd1b1d34095119\",\n        \"contactNumber\": \"010123456789\",\n        \"__v\": 0\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "addressBook/",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/addressBook/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"addressBook",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "delete user address",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/addressBook/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"addressBook",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "34"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"22-DqGpEFvKEq4WL3OXOq6rpAnxUWc\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Feb 2023 18:59:27 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"deleted successfully\"\n}"
 				}
 			]
 		}

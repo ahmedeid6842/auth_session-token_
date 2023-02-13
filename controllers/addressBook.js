@@ -29,6 +29,27 @@ module.exports.updateAddressController = async (req, res) => {
     const { error } = updateAddressSchemaValidation(req.body);
     if (error) return res.status(400).send(error.message);
 
+    if (req.body.address) {
+        const address = Object.entries(req.body.address).reduce(
+            (a, [key, value]) => ({ ...a, ['address.' + key]: value }),
+            {}
+        );
+
+        delete req.body.address;
+        req.body = { ...req.body, ...address }
+    }
+    if (req.body.name) {
+        const name = Object.entries(req.body.name).reduce(
+            (a, [key, value]) => ({ ...a, ['name.' + key]: value }),
+            {}
+        );
+
+        delete req.body.name;
+        req.body = { ...req.body, ...name }
+    }
+
+    console.log(req.body)
+
     let updatedAddress = await Address.findOneAndUpdate({ userId: req.session.user._id }, { $set: req.body }, { new: true })
     if (!updatedAddress) return res.status(404).send({ message: "no contact found " })
 
