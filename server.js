@@ -1,9 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser')
 const cookieParser = require("cookie-parser");
 
-require("dotenv").config();
 
 
 const tokenAuthRouter = require("./routes/usersToken");
@@ -13,27 +13,21 @@ const app = express();
 
 
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }))
 
-
-app.set('view engine', 'ejs');
-app.set('views', 'views');
 
 app.use(cookieParser());
 
-require("./startup/sessionConfig")(app);
-
-
+require("./config/sessionConfig")(app);
 
 app.use("/token", tokenAuthRouter);
 app.use("/session", sessionAuthRouter);
 
-const PORT = process.env.PORT || 3000
-mongoose.connect(process.env.mongodbURI,
+const port = process.env.PORT || 4000;
+mongoose.connect(process.env.MONGODB_URI,
     {
         useUnifiedTopology: true,
         useNewUrlParser: true
     })
-    .then(() => app.listen(PORT, console.log(`listeing on port ${PORT}`)))
-    .catch(err => console.log(err));
+    .then(() => app.listen(port, console.log(`listeing on port ${port}`)))
+    // .catch(err => console.log(err));
 

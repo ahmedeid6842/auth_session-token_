@@ -1,134 +1,117 @@
+const bcrypt = require('bcrypt');
 const User = require("../models/users");
+const { userSchemaValidation } = require("../validators/user")
+const { createNewToken } = require('../utils/getNewToken');
 
-const bcrypt = require('bcryptjs');
-require('dotenv').config()
-
-const { getAccessToken, getRefreshToken, refreshTokens } = require('../middleware/genTokens');
-const { cookie, validationResult } = require("express-validator/check");
-
-
-
-module.exports.getLogin = (req, res) => {
-    res.render('login', {
-        path: "token",
-        validation: ""
-    });
-}
-
-module.exports.postLogin = async (req, res) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-        console.log(errors.array());
-        return res.render("signup", {
-            validation: errors.array(),
-            path: "token"
-        });
-    }
+module.exports.loginController = async (req, res) => {
+    /**
+     * DONE: check if user already logged in or not
+     * DONE: validate request body to match user schema
+     * DONE: check if user email already exist or not
+     * DONE: compare the passwords and verify them
+     * DONE: if everything is ok send in cookie accessToken and refresh Token 
+     */
+    const { error } = userSchemaValidation(req.body);
+    if (error) return res.status(400).send(error.message);
 
     const { email, password } = req.body;
     let user = await User.findOne({ email });
-    if (!user) return res.redirect("/token/login");
-    let verified = await bcrypt.compare(password, user.password);
-    if (!verified) return res.redirect("/token/login");
+    if (!user) return res.status(400).send("invalid email or password");
 
-    const refreshSecret = process.env.RefreshJWTSecret + user.password;
-    const accessSecret = process.env.AccessJWTSecret + user.password;
-    res.cookie("refreshjwt", getRefreshToken(user._id, refreshSecret), {
+    let verified = await bcrypt.compare(password, user.password);
+    if (!verified) return res.status(400).send("invalid email or password");
+
+    res.cookie("refreshjwt", user.createRefreshToken(), {
         secure: process.env.NODE_ENV == 'production' ? true : false,
-        path: "/refresh",
+        path: "/token/refresh",
         httpOnly: true,
         sameSite: 'strict'
     })
-    res.cookie("accessjwt", getAccessToken(user._id, accessSecret), {
+
+    res.cookie("accessjwt", user.createAccessToken(), {
         secure: process.env.NODE_ENV == 'production' ? true : false,
         path: "/",
         httpOnly: true,
         sameSite: 'strict'
     })
-    res.redirect('/token/home');
+
+    return res.send(`login successfully ${user.email}`)
 }
 
-module.exports.postSignup = async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.render("signup", {
-            validation: errors.array(),
-            path: "token"
-        });
-    }
-    const { email, password } = req.body;
+module.exports.registerController = async (req, res) => {
+    /**
+     * DONE: validate if user already logged in
+     * DONE: validate request body to match user schema
+     * DONE: check if email is duplicate and someone else use it
+     * DONE: hash user password
+     * DONE: create a new user 
+     */
+    const { error } = userSchemaValidation(req.body);
+    if (error) return res.status(400).send(error.message);
+
+    let { email, password } = req.body;
+    let user = await User.findOne({ email });
+    if (user) return res.status(400).send(`${email} already assigned to user`);
+
+    let salt = await bcrypt.genSalt(10);
+    password = await bcrypt.hash(password, salt);
+    user = await User.create({ email, password });
+
+    res.cookie("refreshjwt", user.createRefreshToken(), {
+        secure: process.env.NODE_ENV == 'production' ? true : false,
+        path: "/token/refresh",
+        httpOnly: true,
+        sameSite: 'strict'
+    })
+    res.cookie("accessjwt", user.createAccessToken(), {
+        secure: process.env.NODE_ENV == 'production' ? true : false,
+        path: "/",
+        httpOnly: true,
+        sameSite: 'strict'
+    })
+    return res.send(`register successfully ${user.email}`)
+}
+
+module.exports.getHomeController = (req, res) => {
+    /**
+     * DONE: must be authenticated to reach this endpoint
+     */
+    return res.send(`welcome ${req.user.email.split("@")[0]}`)
+}
+
+module.exports.logoutController = (req, res) => {
+    /**
+     * DONE: delete access and refresh token which saved in cookie
+     */
+    res.clearCookie("accessjwt");
+    res.clearCookie('refreshjwt', { path: '/token/refresh' })
+    res.send("logout seccessfully");
+}
+
+module.exports.getRefreshTokenController = async (req, res) => {
+    /**
+     * DONE: check if both access and refresh token are exists
+     * DONE: call createNewToken function which make ensure if those tokens are allowed to have a new access token
+     * DONE: if every thing is ok, then return new access and overwrite the exipred 
+     */
     try {
-        let user = new User({
-            email,
-            password
-        })
+        let refreshJWT = req.cookies['refreshjwt'], accesstJWT = req.cookies['accessjwt'];
 
-        let salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(user.password, salt);
+        if (!refreshJWT || !accesstJWT) return res.send("no token provided");
 
-        await user.save();
-        const refreshSecret = process.env.RefreshJWTSecret + user.password;
-        const accessSecret = process.env.AccessJWTSecret + user.password;
-        res.cookie("refreshjwt", getRefreshToken(user._id, refreshSecret), {
-            secure: process.env.NODE_ENV == 'production' ? true : false,
-            path: "/refresh",
-            httpOnly: true,
-            sameSite: 'strict'
-        })
-        res.cookie("accessjwt", getAccessToken(user._id, accessSecret), {
+        const result = await createNewToken(refreshJWT);
+        if (result.error) return res.send(result.error);
+
+
+        res.cookie("accessjwt", result, {
             secure: process.env.NODE_ENV == 'production' ? true : false,
             path: "/",
             httpOnly: true,
             sameSite: 'strict'
-        })
-            .redirect('/token/home');
+        }).redirect(`/token${req.query.path}`)
     } catch (err) {
-        console.log(err);
+        return res.status(500).send("something went wrong")
     }
-}
-
-module.exports.getSignup = (req, res) => {
-    res.render("signup", {
-        path: "token",
-        validation: ""
-    });
-}
-
-module.exports.getHome = (req, res) => {
-    res.render("welcome", {
-        name: req.user.email.split("@")[0],
-        path: "token"
-    });
-}
-
-
-
-module.exports.getLogout = (req, res) => {
-    res.clearCookie("accessjwt");
-    res.clearCookie('refreshjwt', { path: '/refresh' })
-    res.redirect("/token/");
-}
-
-module.exports.getRefresh = async (req, res) => {
-    let refreshJWT = req.cookies['refreshjwt'], accesstJWT = req.cookies['accessjwt'];
-    if (!refreshJWT || !accesstJWT) return res.redirect("/token/login");
-    const newTokens = await refreshTokens(refreshJWT);
-    if (!newTokens.accessToken || !newTokens.refreshToken) return res.redirect("/token/login");
-
-    res.cookie("refreshjwt", newTokens.refreshToken, {
-        secure: process.env.NODE_ENV == 'production' ? true : false,
-        path: "/refresh",
-        httpOnly: true,
-        sameSite: 'strict'
-    })
-    res.cookie("accessjwt", newTokens.accessToken, {
-        secure: process.env.NODE_ENV == 'production' ? true : false,
-        path: "/",
-        httpOnly: true,
-        sameSite: 'strict'
-    })
-    res.redirect(`/token${req.query.path}`)
 }
 
 
