@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "3d3cdddc-decc-4b54-af50-49bf5a1251f2",
+		"_postman_id": "4a409f69-eaa9-4488-b24e-e333ae4fb17f",
 		"name": "Auth_session_token",
-		"description": "![Logo](https://user-images.githubusercontent.com/57197702/218442989-cf6e2ba1-afde-4a15-a52e-da22d76021f3.JPG)\n\n# Lock\n\nLock uses REST APIs to protect endpoints by using token and session techniques.\n\nThe session branch is connected to the Redis and Mongo databases.\n\nThe Token branch is linked to MongoDB.\n\n## Requirements\n<p>\n <a href=\"https://skillicons.dev\">\n        <img src=\"https://skillicons.dev/icons?i=nodejs,mongodb,redis,postman&theme=light\"/>\n    </a>\n    <a href=\"https://www.npmjs.com/\"><img src=\"https://authy.com/wp-content/uploads/npm-logo.png\" width=\"50px\" height=\"50\"/></a>\n </p>\n\n## API Reference\n\n### Session Based\n\n####  Register\n```http\n  POST /session/register\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Login\n```http\n  Post /session/login\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Home\n```http\n  get /session/home\n```\n| Constraints       | Type        | Description                   |\n| :--------         | :-------    | :-------------------------    |\n| `isAuthenticated` | `middleware`| **Required** you must be logged in to create a post |\n\n#### Logout\n```http\n  get /session/logout\n```\n\n### Token Based\n\n####  Register\n```http\n  POST /token/register\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Login\n```http\n  Post /token/login\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Home\n```http\n  get /token/home\n```\n| Constraints       | Type        | Description                   |\n| :--------         | :-------    | :-------------------------    |\n| `isAuthenticated` | `middleware`| **Required** you must be logged in to create a post |\n\n#### Logout\n```http\n  get /token/logout\n```",
+		"description": "![Logo](https://user-images.githubusercontent.com/57197702/218442989-cf6e2ba1-afde-4a15-a52e-da22d76021f3.JPG)\n\n# Lock\n\nLock uses REST APIs to protect endpoints by using token and session techniques.\n\nThe session branch is connected to the Redis and Mongo databases.\n\nThe Token branch is linked to MongoDB.\n\n**Feature** Although users have an address book\n\n\n\n## Requirements\n<p>\n <a href=\"https://skillicons.dev\">\n        <img src=\"https://skillicons.dev/icons?i=nodejs,mongodb,redis,postman&theme=light\"/>\n    </a>\n    <a href=\"https://www.npmjs.com/\"><img src=\"https://authy.com/wp-content/uploads/npm-logo.png\" width=\"50px\" height=\"50\"/></a>\n </p>\n\n\n## Environment Variables\n\nTo run this project, you will need to add the following environment variables to your **.env** file\n\n`PORT` : port where you application build on it <number>\n\n`REFRESH_JWT_SECRET` : refresh token secret <string>\n\n`ACCESS_JWT_SECRET` : string, access token secret <string>\n\n`MONGODB_URI` : string, mongo database uri <string>\n\n`SESSION_SECRET` : <string>\n\n## Installation\n\nInstall my-project with npm\n\n```bash\n  npm install\n  npm run dev #if your are a developer \n  npm run start\n```\n    \n## Usage\nImport this [JSON file](Auth_session_token.postman_collection.json) into Postman Collection, and you will be able to use all REST APIs.\n\nIf you don't know how to do it, watch this [video](https://www.youtube.com/watch?v=bzquMXmCLUQ).\n    \n## API Reference\n\n### Session Based\n\n####  Register\n```http\n  POST /session/register\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Login\n```http\n  Post /session/login\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Home\n```http\n  get /session/home\n```\n| Constraints       | Type        | Description                   |\n| :--------         | :-------    | :-------------------------    |\n| `isAuthenticated` | `middleware`| **Required** you must be logged in to get to home endpoint |\n\n#### Logout\n```http\n  get /session/logout\n```\n\n### Token Based\n\n####  Register\n```http\n  POST /token/register\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Login\n```http\n  Post /token/login\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `email`      | `string` | **Required** .user's email    |\n| `password`   | `string` | **Required** .user's password |\n\n#### Home\n```http\n  get /token/home\n```\n| Constraints       | Type        | Description                   |\n| :--------         | :-------    | :-------------------------    |\n| `isAuthenticated` | `middleware`| **Required** you must be logged in to get to home endpoint |\n\n#### Logout\n```http\n  get /token/logout\n```\n\n### Address Book\n\n| Constraints       | Type        | Description                   |\n| :--------         | :-------    | :-------------------------    |\n| `isAuthenticated` | `middleware`| **Required** you must be logged in to access Address Book endpoint|\n\n####  Get Your Address\n```http\n  GET /addressBook/\n```\n\n#### Add Your Address\n```http\n  POST /addressBook/\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `name.firstName` | `string` | **Required** .user's first Name    |\n| `name.lastName`   | `string` | **Required** .user's last Name |\n| `contactNumber`   | `string` | **Required** .user's phone number |\n| `address.country`   | `string` | **Required** .user's country |\n| `address.city`   | `string` | **Required** .user's city |\n| `address.street`   | `string` | **Required** .user's street |\n| `address.postalCode`   | `number` | **Required** .user's address postal code |\n\n#### Update your Address\n```http\n  PUT /addressBook/\n```\n| Request Body | Type     | Description                   |\n| :--------    | :------- | :-------------------------    |\n| `name.firstName` | `string` | user's first Name    |\n| `name.lastName`   | `string` | user's last Name |\n| `contactNumber`   | `string` | user's phone number |\n| `address.country`   | `string` | user's country |\n| `address.city`   | `string` | user's city |\n| `address.street`   | `string` | user's street |\n| `address.postalCode`   | `number` | user's address postal code |\n\n#### Delete Your Address\n```http\n  DELETE /addressBook\n```\n\n## Contributing\n\n<h4> Always feel free to break the lock 😅. </h4> \n\n<div align=\"center\">\n<img src=\"https://user-images.githubusercontent.com/57197702/218451102-eaaaeb4d-9392-41af-9dc3-8ba42bb48324.gif\"/>\n</div>\n\n## Authors\n\n- [@AhmedEid](https://github.com/ahmedeid6842/)\n\n    \n## Lessons Learned\n\n- Build a strong authentication using both session and token\n- How to connect Redis Database with session \n- How to use both access and refresh token for authentication process\n- There is always something new to learn 👨‍💻.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -544,20 +544,20 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/session/register",
+					"raw": "localhost:3000/token/register",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"session",
+						"token",
 						"register"
 					]
 				}
 			},
 			"response": [
 				{
-					"name": "regsitered",
+					"name": "registered",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -571,13 +571,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/session/register",
+							"raw": "localhost:3000/token/register",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"session",
+								"token",
 								"register"
 							]
 						}
@@ -589,6 +589,14 @@
 						{
 							"key": "X-Powered-By",
 							"value": "Express"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "refreshjwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2VhOWQ2YzdiZmQ0YTg2ODRiOTMwMzIiLCJpYXQiOjE2NzYzMjAxMDgsImV4cCI6MTY3NjU3OTMwOH0.0xgh25yDaQclkB7r7XMLzlixqm8qHRN_aIjarMR1Scs; Path=/token/refresh; HttpOnly; SameSite=Strict"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "accessjwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2VhOWQ2YzdiZmQ0YTg2ODRiOTMwMzIiLCJpYXQiOjE2NzYzMjAxMDgsImV4cCI6MTY3NjMyMTAwOH0.EYLbW-jjv3MMIgI5CSmg1kCf9_DDEv3IsNPHT5Ilj1U; Path=/; HttpOnly; SameSite=Strict"
 						},
 						{
 							"key": "Content-Type",
@@ -603,12 +611,8 @@
 							"value": "W/\"2c-qOkmJEXmcLo5BJWZHVy2YO2Vwys\""
 						},
 						{
-							"key": "Set-Cookie",
-							"value": "sessionID=s%3AD3JjuECuhyxNcO7KMx3wAPWXk4B-uegN.r%2BIlPmWmrUDuUmEHVJkwWmst9yJyayQKRfrPG2noSLI; Path=/; Expires=Thu, 16 Feb 2023 12:12:25 GMT; HttpOnly; SameSite=Strict"
-						},
-						{
 							"key": "Date",
-							"value": "Mon, 13 Feb 2023 12:12:26 GMT"
+							"value": "Mon, 13 Feb 2023 20:28:28 GMT"
 						},
 						{
 							"key": "Connection",
@@ -623,13 +627,13 @@
 					"body": "register successfully ahmedeid6842@gmail.com"
 				},
 				{
-					"name": "error : validation",
+					"name": "error: validation",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa1234@\"\r\n}",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa2345@\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -637,13 +641,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/session/register",
+							"raw": "localhost:3000/token/register",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"session",
+								"token",
 								"register"
 							]
 						}
@@ -670,7 +674,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Mon, 13 Feb 2023 12:17:25 GMT"
+							"value": "Mon, 13 Feb 2023 20:29:34 GMT"
 						},
 						{
 							"key": "Connection",
@@ -685,7 +689,7 @@
 					"body": "\"password\" should contain at least 5 numeric character"
 				},
 				{
-					"name": "error : email already exist",
+					"name": "error: email already exist",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -699,13 +703,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/session/register",
+							"raw": "localhost:3000/token/register",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"session",
+								"token",
 								"register"
 							]
 						}
@@ -732,7 +736,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Mon, 13 Feb 2023 12:21:52 GMT"
+							"value": "Mon, 13 Feb 2023 20:30:18 GMT"
 						},
 						{
 							"key": "Connection",
@@ -811,11 +815,11 @@
 						},
 						{
 							"key": "Set-Cookie",
-							"value": "refreshjwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2VhMmJkZjg4ZmQxYjFkMzQwOTUxMTkiLCJpYXQiOjE2NzYyOTE3NjAsImV4cCI6MTY3NjU1MDk2MH0.B7GnDpoVO9wLUoKSXmdY-Jvm1jIfJlGtmQ1mpwoECEU; Path=/token/refresh; HttpOnly; SameSite=Strict"
+							"value": "refreshjwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2VhOWQ2YzdiZmQ0YTg2ODRiOTMwMzIiLCJpYXQiOjE2NzYzMjAyNTcsImV4cCI6MTY3NjU3OTQ1N30.X3YVuDWecJLgR8BJlBmNQc-__KGz6ZAngSAIdP8nRMY; Path=/token/refresh; HttpOnly; SameSite=Strict"
 						},
 						{
 							"key": "Set-Cookie",
-							"value": "accessjwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2VhMmJkZjg4ZmQxYjFkMzQwOTUxMTkiLCJpYXQiOjE2NzYyOTE3NjAsImV4cCI6MTY3NjI5MjY2MH0.-chIMNB9qIhWAwQh6gP1oe_tJe-N2QYCb6NLUBIGyXQ; Path=/; HttpOnly; SameSite=Strict"
+							"value": "accessjwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2VhOWQ2YzdiZmQ0YTg2ODRiOTMwMzIiLCJpYXQiOjE2NzYzMjAyNTcsImV4cCI6MTY3NjMyMTE1N30.tsDJeZ8HgdLu1GH7doD76mzPToRB-pkfXEIMA7zT32Y; Path=/; HttpOnly; SameSite=Strict"
 						},
 						{
 							"key": "Content-Type",
@@ -831,7 +835,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Mon, 13 Feb 2023 12:36:00 GMT"
+							"value": "Mon, 13 Feb 2023 20:30:57 GMT"
 						},
 						{
 							"key": "Connection",
@@ -846,13 +850,13 @@
 					"body": "login successfully ahmedeid6842@gmail.com"
 				},
 				{
-					"name": "error : validation",
+					"name": "error: validation",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.\",\r\n    \"password\":\"Aa12345@\"\r\n}",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail\",\r\n    \"password\":\"Aa12345@\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -860,13 +864,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/session/login",
+							"raw": "localhost:3000/token/login",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"session",
+								"token",
 								"login"
 							]
 						}
@@ -893,7 +897,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Mon, 13 Feb 2023 12:25:22 GMT"
+							"value": "Mon, 13 Feb 2023 20:31:49 GMT"
 						},
 						{
 							"key": "Connection",
@@ -908,13 +912,13 @@
 					"body": "\"email\" must be a valid email"
 				},
 				{
-					"name": "error : invalid email or password",
+					"name": "error: invalid email or password",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa123459@\"\r\n}",
+							"raw": "{\r\n    \"email\":\"ahmedeid6842@gmail.com\",\r\n    \"password\":\"Aa123456@\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -922,13 +926,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/session/login",
+							"raw": "localhost:3000/token/login",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"session",
+								"token",
 								"login"
 							]
 						}
@@ -955,7 +959,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Mon, 13 Feb 2023 12:26:10 GMT"
+							"value": "Mon, 13 Feb 2023 20:32:45 GMT"
 						},
 						{
 							"key": "Connection",

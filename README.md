@@ -35,6 +35,8 @@ To run this project, you will need to add the following environment variables to
 
 `SESSION_SECRET` : <string>
 
+`SERVER_URL` : {host}:{port} <string>
+
 ## Installation
 
 Install my-project with npm
