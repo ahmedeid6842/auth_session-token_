@@ -2,13 +2,18 @@
 
 # Lock
 
-Lock uses REST APIs to protect endpoints by using token and session techniques.
+Lock uses REST APIs to protect endpoints by using two techniques: tokens and sessions.
 
-The session branch is connected to the Redis and Mongo databases.
 
-The Token branch is linked to MongoDB.
+The session is connected to the Redis and Mongo databases.
 
-**Feature** Although users have an address book
+
+The token is linked to MongoDB.
+
+
+Every technique is self-contained; for example, I used two branches, but in real world, you will only use one. 
+
+**Feature :** Although users have an address book
 
 
 
@@ -54,9 +59,9 @@ If you don't know how to do it, watch this [video](https://www.youtube.com/watch
     
 ## API Reference
 
-### Session Based
+### 1. Session Based
 
-####  Register
+#### •  Register
 ```http
   POST /session/register
 ```
@@ -65,7 +70,7 @@ If you don't know how to do it, watch this [video](https://www.youtube.com/watch
 | `email`      | `string` | **Required** .user's email    |
 | `password`   | `string` | **Required** .user's password |
 
-#### Login
+#### • Login
 ```http
   Post /session/login
 ```
@@ -74,7 +79,7 @@ If you don't know how to do it, watch this [video](https://www.youtube.com/watch
 | `email`      | `string` | **Required** .user's email    |
 | `password`   | `string` | **Required** .user's password |
 
-#### Home
+#### • Home
 ```http
   get /session/home
 ```
@@ -82,14 +87,14 @@ If you don't know how to do it, watch this [video](https://www.youtube.com/watch
 | :--------         | :-------    | :-------------------------    |
 | `isAuthenticated` | `middleware`| **Required** you must be logged in to get to home endpoint |
 
-#### Logout
+#### • Logout
 ```http
   get /session/logout
 ```
 
-### Token Based
+### 2. Token Based
 
-####  Register
+#### • Register
 ```http
   POST /token/register
 ```
@@ -98,7 +103,7 @@ If you don't know how to do it, watch this [video](https://www.youtube.com/watch
 | `email`      | `string` | **Required** .user's email    |
 | `password`   | `string` | **Required** .user's password |
 
-#### Login
+#### • Login
 ```http
   Post /token/login
 ```
@@ -107,7 +112,7 @@ If you don't know how to do it, watch this [video](https://www.youtube.com/watch
 | `email`      | `string` | **Required** .user's email    |
 | `password`   | `string` | **Required** .user's password |
 
-#### Home
+#### • Home
 ```http
   get /token/home
 ```
@@ -115,23 +120,23 @@ If you don't know how to do it, watch this [video](https://www.youtube.com/watch
 | :--------         | :-------    | :-------------------------    |
 | `isAuthenticated` | `middleware`| **Required** you must be logged in to get to home endpoint |
 
-#### Logout
+#### • Logout
 ```http
   get /token/logout
 ```
 
-### Address Book
+### 3. Address Book
 
 | Constraints       | Type        | Description                   |
 | :--------         | :-------    | :-------------------------    |
 | `isAuthenticated` | `middleware`| **Required** you must be logged in to access Address Book endpoint|
 
-####  Get Your Address
+#### • Get Your Address
 ```http
   GET /addressBook/
 ```
 
-#### Add Your Address
+#### • Add Your Address
 ```http
   POST /addressBook/
 ```
@@ -145,7 +150,7 @@ If you don't know how to do it, watch this [video](https://www.youtube.com/watch
 | `address.street`   | `string` | **Required** .user's street |
 | `address.postalCode`   | `number` | **Required** .user's address postal code |
 
-#### Update your Address
+#### • Update your Address
 ```http
   PUT /addressBook/
 ```
@@ -159,7 +164,7 @@ If you don't know how to do it, watch this [video](https://www.youtube.com/watch
 | `address.street`   | `string` | user's street |
 | `address.postalCode`   | `number` | user's address postal code |
 
-#### Delete Your Address
+#### • Delete Your Address
 ```http
   DELETE /addressBook
 ```
