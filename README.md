@@ -1,6 +1,6 @@
 ![Logo](https://user-images.githubusercontent.com/57197702/218442989-cf6e2ba1-afde-4a15-a52e-da22d76021f3.JPG)
 
-# Lock
+# Lock 
 
 Lock uses REST APIs to protect endpoints by using token and session techniques.
 
@@ -46,10 +46,13 @@ Install my-project with npm
 ```
     
 ## Usage
-Import this [JSON file](Auth_session_token.postman_collection.json) into Postman Collection, and you will be able to use all REST APIs.
+Import this [JSON file](Lock.postman_collection.json) into Postman Collection, and you will be able to use all REST APIs.
 
 If you don't know how to do it, watch this [video](https://www.youtube.com/watch?v=bzquMXmCLUQ).
-    
+
+you can also use swagger-ui by access **/api-docs/**
+![swagger](https://user-images.githubusercontent.com/57197702/218692185-0666ea88-3261-411c-9715-7c4bb959be61.gif)
+
 ## API Reference
 
 ### Session Based
