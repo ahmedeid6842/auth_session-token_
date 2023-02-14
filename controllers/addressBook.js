@@ -48,8 +48,6 @@ module.exports.updateAddressController = async (req, res) => {
         req.body = { ...req.body, ...name }
     }
 
-    console.log(req.body)
-
     let updatedAddress = await Address.findOneAndUpdate({ userId: req.session.user._id }, { $set: req.body }, { new: true })
     if (!updatedAddress) return res.status(404).send({ message: "no contact found " })
 

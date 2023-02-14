@@ -2,13 +2,18 @@
 
 # Lock 
 
-Lock uses REST APIs to protect endpoints by using token and session techniques.
+Lock uses REST APIs to protect endpoints by using two techniques: tokens and sessions.
 
-The session branch is connected to the Redis and Mongo databases.
 
-The Token branch is linked to MongoDB.
+The session is connected to the Redis and Mongo databases.
 
-**Feature** Although users have an address book
+
+The token is linked to MongoDB.
+
+
+Every technique is self-contained; for example, I used two branches, but in real world, you will only use one. 
+
+**Feature :** Although users have an address book
 
 
 
@@ -35,6 +40,8 @@ To run this project, you will need to add the following environment variables to
 
 `SESSION_SECRET` : <string>
 
+`SERVER_URL` : {host}:{port} <string>
+
 ## Installation
 
 Install my-project with npm
@@ -55,9 +62,9 @@ you can also use swagger-ui by access **/api-docs/**
 
 ## API Reference
 
-### Session Based
+### 1. Session Based
 
-####  Register
+#### •  Register
 ```http
   POST /session/register
 ```
@@ -66,7 +73,7 @@ you can also use swagger-ui by access **/api-docs/**
 | `email`      | `string` | **Required** .user's email    |
 | `password`   | `string` | **Required** .user's password |
 
-#### Login
+#### • Login
 ```http
   Post /session/login
 ```
@@ -75,7 +82,7 @@ you can also use swagger-ui by access **/api-docs/**
 | `email`      | `string` | **Required** .user's email    |
 | `password`   | `string` | **Required** .user's password |
 
-#### Home
+#### • Home
 ```http
   get /session/home
 ```
@@ -83,14 +90,14 @@ you can also use swagger-ui by access **/api-docs/**
 | :--------         | :-------    | :-------------------------    |
 | `isAuthenticated` | `middleware`| **Required** you must be logged in to get to home endpoint |
 
-#### Logout
+#### • Logout
 ```http
   get /session/logout
 ```
 
-### Token Based
+### 2. Token Based
 
-####  Register
+#### • Register
 ```http
   POST /token/register
 ```
@@ -99,7 +106,7 @@ you can also use swagger-ui by access **/api-docs/**
 | `email`      | `string` | **Required** .user's email    |
 | `password`   | `string` | **Required** .user's password |
 
-#### Login
+#### • Login
 ```http
   Post /token/login
 ```
@@ -108,7 +115,7 @@ you can also use swagger-ui by access **/api-docs/**
 | `email`      | `string` | **Required** .user's email    |
 | `password`   | `string` | **Required** .user's password |
 
-#### Home
+#### • Home
 ```http
   get /token/home
 ```
@@ -116,23 +123,23 @@ you can also use swagger-ui by access **/api-docs/**
 | :--------         | :-------    | :-------------------------    |
 | `isAuthenticated` | `middleware`| **Required** you must be logged in to get to home endpoint |
 
-#### Logout
+#### • Logout
 ```http
   get /token/logout
 ```
 
-### Address Book
+### 3. Address Book
 
 | Constraints       | Type        | Description                   |
 | :--------         | :-------    | :-------------------------    |
 | `isAuthenticated` | `middleware`| **Required** you must be logged in to access Address Book endpoint|
 
-####  Get Your Address
+#### • Get Your Address
 ```http
   GET /addressBook/
 ```
 
-#### Add Your Address
+#### • Add Your Address
 ```http
   POST /addressBook/
 ```
@@ -146,7 +153,7 @@ you can also use swagger-ui by access **/api-docs/**
 | `address.street`   | `string` | **Required** .user's street |
 | `address.postalCode`   | `number` | **Required** .user's address postal code |
 
-#### Update your Address
+#### • Update your Address
 ```http
   PUT /addressBook/
 ```
@@ -160,7 +167,7 @@ you can also use swagger-ui by access **/api-docs/**
 | `address.street`   | `string` | user's street |
 | `address.postalCode`   | `number` | user's address postal code |
 
-#### Delete Your Address
+#### • Delete Your Address
 ```http
   DELETE /addressBook
 ```
