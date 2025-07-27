@@ -23,9 +23,24 @@
     "winston": "^3.8.2"
   },
   "scripts": {
+    "build": "npm run build-ts",
+    "build-ts": "tsc",
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node dist/server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/connect-redis": "^0.0.23",
+    "@types/cookie-parser": "^1.4.9",
+    "@types/express": "^5.0.3",
+    "@types/express-session": "^1.18.2",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.1.0",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
 }
