@@ -1,9 +1,9 @@
-const jwt = require("jsonwebtoken");
-const User = require("../models/users");
+import jwt, { JwtPayload } from "jsonwebtoken";
+import User from "../models/users";
 
-const createNewToken = async function (refreshToken) { // this util function to get a new access token by refresh token 
+export const createNewToken = async function (refreshToken: string) { // this util function to get a new access token by refresh token 
     try {
-        let { userId } = jwt.decode(refreshToken);
+        let { userId } = jwt.decode(refreshToken) as JwtPayload;
 
         let user = await User.findById(userId);
         if (!user) return { error: "invalid user id" };
@@ -13,18 +13,13 @@ const createNewToken = async function (refreshToken) { // this util function to 
 
         const result = user.createAccessToken()
         return result;
-    } catch (err) {
+    } catch (err: any) {
         if (err.message === "jwt expired") {
             return { error: "your session has expired try to login again" }
         } else if (err.message == "invalid signature") {
-            return res.status(400).send(err.message);
+            return { error: err.message };
         }
         throw new Error("something went wrong ")
     }
 
-}
-
-
-module.exports = {
-    createNewToken
 }
