@@ -1,5 +1,15 @@
-const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
+import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
+
+export interface IUser {
+    email: string;
+    password: string;
+}
+
+export interface IUserDocument extends IUser, mongoose.Document {
+    createAccessToken(): string;
+    createRefreshToken(): string;
+}
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -9,6 +19,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
+        required: true,
         minlength: 7,
         maxlength: 255
     }
@@ -22,4 +33,4 @@ userSchema.methods.createRefreshToken = function () {
     return jwt.sign({ userId: this._id }, process.env.REFRESH_JWT_SECRET + this.password, { expiresIn: "3d" });
 }
 
-module.exports = mongoose.model("user", userSchema);
+export default mongoose.model<IUserDocument>("user", userSchema);

@@ -1,4 +1,21 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
+export interface IAddressBook {
+    userId: mongoose.Schema.Types.ObjectId;
+    name: {
+        firstName: string;
+        lastName: string;
+    };
+    contactNumber: string;
+    address: {
+        country?: string;
+        city?: string;
+        street?: string;
+        postalCode?: string;
+    };
+}
+
+export interface IAddressBookDocument extends IAddressBook, mongoose.Document {}
 
 const AddressBookSchema = new mongoose.Schema({
     userId: {
@@ -26,4 +43,4 @@ const AddressBookSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model("address_book", AddressBookSchema);
+export default mongoose.model<IAddressBookDocument>("address_book", AddressBookSchema);
