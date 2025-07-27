@@ -1,6 +1,6 @@
-const joi = require("joi");
+import joi from "joi";
 
-module.exports.addressSchemaValidation = (address) => {
+export const addressSchemaValidation = (address: any) => {
     const schema = joi.object({
         name: joi.object().keys({
             firstName: joi.string().min(3).max(255).required(),
@@ -17,7 +17,7 @@ module.exports.addressSchemaValidation = (address) => {
     return schema.validate(address);
 }
 
-module.exports.updateAddressSchemaValidation = (address) => {
+export const updateAddressSchemaValidation = (address: any) => {
     const schema = joi.object({
         name: joi.object().keys({
             firstName: joi.string().min(3).max(255),

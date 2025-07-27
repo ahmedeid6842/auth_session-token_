@@ -1,8 +1,8 @@
-const joi = require("joi");
-const { joiPasswordExtendCore } = require("joi-password");
+import joi from "joi";
+import { joiPasswordExtendCore } from "joi-password";
 const joiPassword = joi.extend(joiPasswordExtendCore);
 
-module.exports.userSchemaValidation = (user) => {
+export const userSchemaValidation = (user: any) => {
     const schema = joi.object({
         email: joi.string().email().required(),
         password: joiPassword
