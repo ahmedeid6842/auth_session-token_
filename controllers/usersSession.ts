@@ -1,8 +1,9 @@
-const bcrypt = require("bcrypt");
-const User = require("../models/users");
-const { userSchemaValidation } = require("../validators/user");
+import bcrypt from "bcrypt";
+import {Request, Response} from 'express'
+import User from "../models/users";
+import {userSchemaValidation} from "../validators/user";
 
-module.exports.loginController = async (req, res) => {
+export const loginController = async (req: Request, res: Response) => {
     /**
      * DONE: validate request body to match user shcema 
      * DONE: check if email already exist or not
@@ -26,7 +27,7 @@ module.exports.loginController = async (req, res) => {
 }
 
 
-module.exports.registerController = async (req, res) => {
+export const registerController = async (req: Request, res: Response) => {
     /**
      * DONE: validate request body to match user schema 
      * DONE: check if email unique or not
@@ -51,14 +52,14 @@ module.exports.registerController = async (req, res) => {
 }
 
 
-module.exports.getHomeController = (req, res) => {
+export const getHomeController = (req: Request, res: Response) => {
     /**
      * DONE: must be authenticated to reach your endpoint
      */
-    return res.send(`welcome ${req.session.user.email.split("@")[0]}`)
+    return res.send(`welcome ${req.session?.user?.email?.split("@")[0]}`)
 }
 
-module.exports.logoutController = (req, res) => {
+export const logoutController = (req: Request, res: Response) => {
     /**
      * DONE: delete session in both redis and cookie
      */

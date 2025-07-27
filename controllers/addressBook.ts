@@ -1,23 +1,24 @@
-const Address = require("../models/addressBook");
-const { addressSchemaValidation, updateAddressSchemaValidation } = require("../validators/address")
+import {Request, Response} from 'express'
+import Address from "../models/addressBook";
+import { addressSchemaValidation, updateAddressSchemaValidation } from "../validators/address";
 
-module.exports.getAddressController = async (req, res) => {
+export const getAddressController = async (req: Request, res: Response) => {
     let address = await Address
-        .findOne({ userId: req.session.user._id })
+        .findOne({ userId: req.session?.user?._id })
         .populate('userId', ['email']);
     if (!address) return res.status(404).send({ message: "no contact found " })
     return res.send({ message: "found", address });
 }
 
-module.exports.addAddressController = async (req, res) => {
+export const addAddressController = async (req: Request, res: Response) => {
     const { error } = addressSchemaValidation(req.body);
     if (error) return res.status(400).send(error.message);
 
-    let addressExist = await Address.findOne({ userId: req.session.user._id });
+    let addressExist = await Address.findOne({ userId: req.session?.user?._id });
     if (addressExist) return res.status(400).send({ message: "contact already exist" });
 
     let newAddress = new Address({
-        userId: req.session.user._id,
+        userId: req.session?.user?._id,
         ...req.body
     })
 
@@ -25,7 +26,7 @@ module.exports.addAddressController = async (req, res) => {
     return res.send({ message: "added successfully", newAddress })
 }
 
-module.exports.updateAddressController = async (req, res) => {
+export const updateAddressController = async (req: Request, res: Response) => {
     const { error } = updateAddressSchemaValidation(req.body);
     if (error) return res.status(400).send(error.message);
 
@@ -48,14 +49,14 @@ module.exports.updateAddressController = async (req, res) => {
         req.body = { ...req.body, ...name }
     }
 
-    let updatedAddress = await Address.findOneAndUpdate({ userId: req.session.user._id }, { $set: req.body }, { new: true })
+    let updatedAddress = await Address.findOneAndUpdate({ userId: req.session?.user?._id }, { $set: req.body }, { new: true })
     if (!updatedAddress) return res.status(404).send({ message: "no contact found " })
 
     return res.send({ message: "updated successfully ", updatedAddress })
 }
 
-module.exports.deleteAddressController = async (req, res) => {
-    let deletedAddress = await Address.findOneAndDelete({ userId: req.session.user._id });
+export const deleteAddressController = async (req: Request, res: Response) => {
+    let deletedAddress = await Address.findOneAndDelete({ userId: req.session?.user?._id });
     if (!deletedAddress) return res.status(404).send("no contact found");
 
     return res.send({ message: "deleted successfully" })

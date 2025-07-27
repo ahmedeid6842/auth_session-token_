@@ -1,9 +1,10 @@
-const bcrypt = require('bcrypt');
-const User = require("../models/users");
-const { userSchemaValidation } = require("../validators/user")
-const { createNewToken } = require('../utils/getNewToken');
+import bcrypt from 'bcrypt';
+import {Request, Response} from 'express'
+import User from "../models/users";
+import { userSchemaValidation } from "../validators/user";
+import { createNewToken } from '../utils/getNewToken';
 
-module.exports.loginController = async (req, res) => {
+export const loginController = async (req: Request, res: Response) => {
     /**
      * DONE: check if user already logged in or not
      * DONE: validate request body to match user schema
@@ -38,7 +39,7 @@ module.exports.loginController = async (req, res) => {
     return res.send(`login successfully ${user.email}`)
 }
 
-module.exports.registerController = async (req, res) => {
+export const registerController = async (req: Request, res: Response) => {
     /**
      * DONE: validate if user already logged in
      * DONE: validate request body to match user schema
@@ -72,14 +73,14 @@ module.exports.registerController = async (req, res) => {
     return res.send(`register successfully ${user.email}`)
 }
 
-module.exports.getHomeController = (req, res) => {
+export const getHomeController = (req: Request, res: Response) => {
     /**
      * DONE: must be authenticated to reach this endpoint
      */
-    return res.send(`welcome ${req.user.email.split("@")[0]}`)
+    return res.send(`welcome ${req.user?.email?.split("@")[0]}`)
 }
 
-module.exports.logoutController = (req, res) => {
+export const logoutController = (req: Request, res: Response) => {
     /**
      * DONE: delete access and refresh token which saved in cookie
      */
@@ -88,7 +89,7 @@ module.exports.logoutController = (req, res) => {
     res.send("logout seccessfully");
 }
 
-module.exports.getRefreshTokenController = async (req, res) => {
+export const getRefreshTokenController = async (req: Request, res: Response) => {
     /**
      * DONE: check if both access and refresh token are exists
      * DONE: call createNewToken function which make ensure if those tokens are allowed to have a new access token
@@ -99,7 +100,7 @@ module.exports.getRefreshTokenController = async (req, res) => {
 
         if (!refreshJWT || !accesstJWT) return res.send("no token provided");
 
-        const result = await createNewToken(refreshJWT);
+        const result = await createNewToken(refreshJWT) as { accessToken: string, error?: string };
         if (result.error) return res.send(result.error);
 
 
