@@ -1,11 +1,11 @@
-const session = require('express-session');
-const RedisStore = require("connect-redis")(session);
-const Redis = require("ioredis");
-
-const User = require("../models/users");
+import session from 'express-session';
+import ConnectReddis from "connect-redis";
+import Redis from "ioredis";
 
 
-module.exports = function (app) {
+const RedisStore = ConnectReddis(session);
+
+export default function (app: any) {
     /**
      * DONE: set-up session configurations 
      * DONE: use redis for connecting sessions
@@ -18,7 +18,7 @@ module.exports = function (app) {
 
     app.use(session({
         name: "sessionID",
-        secret: process.env.SESSION_SECRET,
+        secret: process.env.SESSION_SECRET as string,
         resave: false,
         saveUninitialized: false,
         store: store,
