@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 
-const { getHomeController, loginController, logoutController, registerController, getRefreshTokenController } = require("../controllers/userToken");
-const { isAuth, isLoggedIn } = require('../middleware/isAuthToken');
+import { getHomeController, loginController, logoutController, registerController, getRefreshTokenController } from "../controllers/userToken";
+import { isAuth, isLoggedIn } from '../middleware/isAuthToken';
 
 const router = express.Router();
 
@@ -106,4 +106,4 @@ router.get("/home", isAuth, getHomeController)
 router.get("/refresh", getRefreshTokenController)
 router.get('/logout', logoutController);
 
-module.exports = router;
+export default router;

@@ -1,7 +1,7 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const { getAddressController, addAddressController, updateAddressController, deleteAddressController } = require("../controllers/addressBook")
+import { getAddressController, addAddressController, updateAddressController, deleteAddressController } from "../controllers/addressBook";
 
 /**
  * @swagger
@@ -201,4 +201,4 @@ router.put("/", updateAddressController);
 router.delete("/", deleteAddressController);
 
 
-module.exports = router;
+export default router;

@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const { getHomeController, loginController, registerController, logoutController } = require("../controllers/usersSession")
-const { isAuth,isLogged } = require("../middleware/isAuthSession");
+import { getHomeController, loginController, registerController, logoutController } from "../controllers/usersSession";
+import { isAuth,isLogged } from "../middleware/isAuthSession";
 
 /**
  * @swagger
@@ -105,4 +105,4 @@ router.post("/login", isLogged, loginController);
 router.get("/home", isAuth, getHomeController);
 router.get("/logout", logoutController);
 
-module.exports = router;
+export default router;
